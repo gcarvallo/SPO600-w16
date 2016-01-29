@@ -50,10 +50,14 @@ innerloop:
 	cmp x22, max
 	b.lt innerloop
 
+   	mov x0, 1        /*file descriptor     */
+	adr x1, lin    /* msg location */
+	mov x2, linelen  /*lenght */
+	mov x8, 64     /* write syscall */
+	svc 0
+		
 	cmp x19, max
 	b.lt outerloop	
-
-		
 
 	mov x0, 0   /* exit syscall code block */
 	mov x8, 93
@@ -80,7 +84,7 @@ continue:
 .data
 msg: .ascii "    X    =      \n"
 len= . - msg
-lin: .ascii "----------------------"
+lin: .ascii "----------------------\n"
 linelen = . - lin
 
 
